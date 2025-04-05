@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Linq.Expressions;
 using System.Reflection;
 using TaxManagement.DAL.Context;
 using TaxManagement.DAL.Repositories;
@@ -52,6 +53,16 @@ app.UseSwaggerUI(opt =>
 
 //Migrate database on application start to ensure it's up to date with current model
 var db = app.Services.GetRequiredService<TaxManagementContext>();
-db.Database.Migrate();
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+try
+{
+    logger.Log(LogLevel.Information, "Starting applying EF migrations.");
+    db.Database.Migrate();
+}
+catch(Exception ex) 
+{ 
+    logger.LogError(ex.Message); 
+}
+
 
 app.Run();

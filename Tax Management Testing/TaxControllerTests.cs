@@ -47,7 +47,7 @@ namespace Tax_Management_Testing
         {
             var application = new TaxManagementApplicationFactory();
 
-            var additionalInput = "?Municipality=Odessa&StartDate=01.01.2025&EndDate=31.12.2025&Rate=0.8&Type=Yearly";
+            var additionalInput = "?Municipality=Copenhagen&StartDate=01.01.2025&EndDate=31.12.2025&Rate=0.8&Type=Yearly";
 
             var client = application.CreateClient();
 
@@ -62,7 +62,7 @@ namespace Tax_Management_Testing
         {
             var application = new TaxManagementApplicationFactory();
 
-            var additionalInput = "?Municipality=Kiyv&Date=01.01.2024&Type=Yearly&NewRate=0.7";
+            var additionalInput = "?Municipality=Copenhagen&Date=01.01.2024&Type=Yearly&NewRate=0.7";
 
             var client = application.CreateClient();
 

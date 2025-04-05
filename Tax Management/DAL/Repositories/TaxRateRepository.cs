@@ -7,12 +7,10 @@ namespace TaxManagement.DAL.Repositories
     public class TaxRateRepository : ITaxRateRepository
     {
         private readonly TaxManagementContext _context;
-        private readonly ILogger<TaxRateRepository> _logger;
 
-        public TaxRateRepository(TaxManagementContext context, ILogger<TaxRateRepository> logger)
+        public TaxRateRepository(TaxManagementContext context)
         {
             _context = context;
-            _logger = logger;
         }
 
         public IEnumerable<TaxRate> GetAllTaxRates()
@@ -22,9 +20,12 @@ namespace TaxManagement.DAL.Repositories
 
         public TaxRate GetTaxRateForMunicipalityAndDate(string municipality, DateTime date)
         {
+            //Recieve all records that are matching the input
             var matchingRates = _context.TaxRates.Where(x => x.Municipality == municipality && x.StartDate <= date && x.EndDate >= date);
             if(matchingRates != null && matchingRates.Any())
             {
+                //From specification of this task I made an assumption, that monthly taxes take priority over yearly, and daily take priority over monthly
+                //So to pick rate for provided date I pick record with tax type of highest priority
                 var minRateType = matchingRates.Min(x => x.Type);
                 return matchingRates.Single(x => x.Type == minRateType);
             }
