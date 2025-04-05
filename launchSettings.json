@@ -1,0 +1,16 @@
+{
+    "Docker": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "DockerfileRunArguments": "-l mylabel=value",
+      "environmentVariables": {
+        "ASPNETCORE_URLS": "https://+:443;http://+:80",
+        "ASPNETCORE_HTTPS_PORT": "44360",
+        "ASPNETCORE_ENVIRONMENT" : "Development"
+      },
+      "httpPort": 51803,
+      "useSSL": true,
+      "sslPort": 44360
+    }
+}
